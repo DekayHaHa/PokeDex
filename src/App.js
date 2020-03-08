@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { urlLanding } from './urlHolder'
-import { fetchData } from './fetchUtil'
+import { fetchData, getFilters } from './Util'
 import List from './List'
 import Header from './Header'
 
@@ -11,18 +11,24 @@ export default class App extends Component {
     this.state = {
       isLoading: false,
       pokemon: [],
+      pokemonTypes: [],
+      pokemonWeaknesses: []
     }
   }
   componentDidMount = () => {
     this.getData();
   }
+
   getData = async () => {
     const url = urlLanding();
     await this.changeState({ isLoading: true });
     const data = await fetchData(url);
     await this.changeState({ pokemon: data.pokemon });
+    await this.setFilters();
     await this.changeState({ isLoading: false });
   }
+
+  setFilters = () => this.changeState(getFilters(this.state.pokemon))
 
   changeState = newState => this.setState(newState)
 
@@ -31,7 +37,8 @@ export default class App extends Component {
     return (
       <article>
         <Header />
-        <List />
+        {console.log(this.state)}
+        <List pokemon={pokemon} />
       </article>
     );
   }
