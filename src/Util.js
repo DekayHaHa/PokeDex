@@ -8,22 +8,23 @@ export const fetchData = url => {
   }
 }
 
+const filterBy = (mon, name, filters) => {
+  mon[name].forEach(val => {
+    if (!filters.includes(val)) {
+      filters.push(val)
+    }
+  })
+  return filters
+}
+
 export const getFilters = mons => {
   return mons.reduce((acc, mon) => {
-    const { pokemonWeaknesses, pokemonTypes } = acc;
-    mon.type.forEach(val => {
-      if (!pokemonTypes.includes(val)) {
-        pokemonTypes.push(val)
-      }
-    })
-    mon.weaknesses.forEach(val => {
-      if (!pokemonWeaknesses.includes(val)) {
-        pokemonWeaknesses.push(val)
-      }
-    })
+    acc.pokemonTypes = filterBy(mon, "type", acc.pokemonTypes)
+    acc.pokemonWeaknesses = filterBy(mon, "weaknesses", acc.pokemonWeaknesses)
     return acc;
   }, {
     pokemonTypes: [],
     pokemonWeaknesses: []
   })
 };
+
