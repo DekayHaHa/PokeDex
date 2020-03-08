@@ -1,0 +1,20 @@
+.modal-content {
+  text-align: center;
+}
+
+.checkbox-container {
+  display: flex;
+}
+
+.filter-holder {
+  width: 50%;
+}
+
+.filter-holder.type {
+  border-right: 1px solid black;
+}
+
+.checkboxes {
+  columns: 3;
+}
+
