@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 
 export default class List extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
 
     }
@@ -15,6 +15,9 @@ export default class List extends Component {
 
       <section >
         <h1>LIST</h1>
+        {this.props.pokemon.map(mon => {
+          return <img src={mon.img} alt={mon.name} />
+        })}
       </section>
     );
   }
