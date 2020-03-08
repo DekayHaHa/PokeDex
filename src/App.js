@@ -12,7 +12,10 @@ export default class App extends Component {
       isLoading: false,
       pokemon: [],
       pokemonTypes: [],
-      pokemonWeaknesses: []
+      pokemonWeaknesses: [],
+      searchText: '',
+      typeFilters: [],
+      weaknessFilters: []
     }
   }
   componentDidMount = () => {
@@ -36,9 +39,9 @@ export default class App extends Component {
     const { isLoading, pokemon } = this.state;
     return (
       <article>
-        <Header />
+        <Header changeState={this.changeState} />
         {console.log(this.state)}
-        <List pokemon={pokemon} />
+        <List {...this.state} />
       </article>
     );
   }
