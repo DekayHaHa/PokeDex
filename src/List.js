@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PokemonCard } from './PokemonCard'
 
 
 export default class List extends Component {
@@ -20,42 +21,30 @@ export default class List extends Component {
     return pokemon.filter(mon => mon.name.toLowerCase().includes(this.props.searchText))
   }
 
-  // filterByKey = (pokemon, filters, key) => {
-  // const { typeFilters } = this.props
-  // return pokemon.filter(mon => [filters].every(type => mon[key].includes(type)))
-  // }
-
-
   filterByType = pokemon => {
     const { typeFilters } = this.props
     return pokemon.filter(mon => typeFilters.every(weakness => mon['type'].includes(weakness)))
   }
-
 
   filterByWeakness = pokemon => {
     const { weaknessFilters } = this.props
     return pokemon.filter(mon => weaknessFilters.every(weakness => mon['weaknesses'].includes(weakness)))
   }
 
+  displayPokemon = pokemon => {
+    return pokemon.map(mon => <PokemonCard {...mon} />)
+  }
   // A list of all pokemon based on filters
   render() {
     const allPokemon = this.state.pokemon;
-    const { typeFilters, weaknessFilters } = this.props;
     const byName = this.filterByName(allPokemon);
     const byType = this.filterByType(byName);
     const toDisplay = this.filterByWeakness(byType);
 
-
-    // const bytype = this.filterByKey(byName, typeFilters, 'type')
-    // const toDisplay = this.filterByKey(bytype, weaknessFilters, 'weaknesses')
-
     return (
 
-      <section >
-        <h1>LIST</h1>
-        {toDisplay.map(mon => {
-          return <img src={mon.img} alt={mon.name} />
-        })}
+      <section class='list-container'>
+        {this.displayPokemon(toDisplay)}
       </section>
     );
   }

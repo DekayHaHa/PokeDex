@@ -1,4 +1,11 @@
-.modal-content {
+.app {
+  display: flex;
+  padding: 15px;
+}
+
+.header {
+  position: fixed;
+  width: 30%;
   text-align: center;
 }
 
@@ -10,11 +17,48 @@
   width: 50%;
 }
 
-.filter-holder.type {
+.checkboxes {
+  columns: 2;
+}
+
+.filter-holder:first-child {
   border-right: 1px solid black;
 }
 
-.checkboxes {
-  columns: 3;
+.pokemon-card {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
 }
 
+.pokemon-card h3 {
+  width: 100%;
+}
+
+.list-container {
+  margin-left: 30%;
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(350px, 1fr) );
+}
+
+.card-info {
+  display: flex;
+}
+
+.card-info div, .card-info img {
+  width: 33%;
+}
+
+.pokemon-card p {
+  margin: 0;
+}
+
+div.weaknesses {
+  width: 100%;
+  columns: 2 auto;
+}
+
+.pokemon-name {
+  background-color: lavender;
+}

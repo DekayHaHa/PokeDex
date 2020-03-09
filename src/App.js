@@ -3,8 +3,7 @@ import './App.css';
 import { urlLanding } from './urlHolder'
 import { fetchData, getFilters } from './Util'
 import List from './List'
-import Header from './Header'
-import FilterModal from './FilterModal'
+import Filters from './Filters'
 
 
 export default class App extends Component {
@@ -51,21 +50,13 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLoading, pokemon, isOpen, pokemonTypes, pokemonWeaknesses, weaknessFilters, typeFilters } = this.state;
     return (
-      <article>
-        <Header
+      <article className='app'>
+        <Filters
+          {...this.state}
           changeState={this.changeState}
-        />
-        <FilterModal
-          weaknessFilters={weaknessFilters}
-          typeFilters={typeFilters}
           checkBoxFilters={this.checkBoxFilters}
-          types={pokemonTypes}
-          weaknesses={pokemonWeaknesses}
-          isOpen={isOpen}
-          changeState={this.changeState}
-          onHide={() => this.changeState({ isOpen: false })} />
+        />
         <List {...this.state} />
       </article>
     );
