@@ -3,8 +3,7 @@ import './App.css';
 import { urlLanding } from './urlHolder'
 import { fetchData, getFilters } from './Util'
 import List from './List'
-import Header from './Header'
-import FilterModal from './FilterModal'
+import Filters from './Filters'
 
 
 export default class App extends Component {
@@ -18,8 +17,9 @@ export default class App extends Component {
       searchText: '',
       typeFilters: [],
       weaknessFilters: [],
-      isOpen: false,
-
+      // for modal to display pokemon details
+      // isOpen: false,
+      // pokemonDetails: {}
     }
   }
   componentDidMount = () => {
@@ -37,11 +37,12 @@ export default class App extends Component {
 
   setFilters = () => this.changeState(getFilters(this.state.pokemon))
 
+  // basic fuction passed an object to set new state
   changeState = newState => this.setState(newState)
 
+  // checks filter arrays and add/ removes filter elem respectively
   checkBoxFilters = (key, toFilterBy) => {
     let newFilters = this.state[key]
-
     if (this.state[key].includes(toFilterBy)) {
       newFilters = newFilters.filter(val => val !== toFilterBy)
     } else {
@@ -51,21 +52,13 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLoading, pokemon, isOpen, pokemonTypes, pokemonWeaknesses, weaknessFilters, typeFilters } = this.state;
     return (
-      <article>
-        <Header
+      <article className='app'>
+        <Filters
+          {...this.state}
           changeState={this.changeState}
-        />
-        <FilterModal
-          weaknessFilters={weaknessFilters}
-          typeFilters={typeFilters}
           checkBoxFilters={this.checkBoxFilters}
-          types={pokemonTypes}
-          weaknesses={pokemonWeaknesses}
-          isOpen={isOpen}
-          changeState={this.changeState}
-          onHide={() => this.changeState({ isOpen: false })} />
+        />
         <List {...this.state} />
       </article>
     );

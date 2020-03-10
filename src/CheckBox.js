@@ -2,24 +2,20 @@ import React from 'react';
 
 export default function CheckBox(props) {
 
-  const filterCheck = () => {
-    const checked = <input
-      type="checkbox"
-      onChange={() => props.checkBoxFilters(`${props.filter}Filters`, props.name)}
-      checked
-    />
-    const unchcecked = <input
+  const filterCheck = id => {
+    return <input
+      id={id}
       type="checkbox"
       onChange={() => props.checkBoxFilters(`${props.filter}Filters`, props.name)}
     />
-    return props.currentFilters.includes(props.name) ? checked : unchcecked;
   }
+  // for linking for and id properly
+  const id = props.name + '-' + props.filter
+
   return (
     <div >
-      <label htmlFor={props.name}>
-        {filterCheck()}
-        <div className="faux-box"></div>
-        <p >{props.name}</p>
+      <label htmlFor={id}>
+        <p><span>{filterCheck(id)}</span> {props.name}</p>
       </label>
     </div>
   );

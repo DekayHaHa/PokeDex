@@ -1,61 +1,44 @@
 import React, { Component } from 'react';
+import { PokemonCard } from './PokemonCard'
 
 
 export default class List extends Component {
+  // make a functional component
   constructor(props) {
     super(props);
     this.state = {
-      pokemon: [],
     }
   }
 
-  componentDidUpdate = prevProps => {
-    const { pokemon } = this.props
-    if (prevProps !== this.props) {
-      this.setState({ pokemon })
-    }
-  }
-
+  // possibly use a library if project had more data 
   filterByName = pokemon => {
     return pokemon.filter(mon => mon.name.toLowerCase().includes(this.props.searchText))
   }
 
-  // filterByKey = (pokemon, filters, key) => {
-  // const { typeFilters } = this.props
-  // return pokemon.filter(mon => [filters].every(type => mon[key].includes(type)))
-  // }
-
-
+  // Could possibly comnine type/weakness filters
   filterByType = pokemon => {
     const { typeFilters } = this.props
     return pokemon.filter(mon => typeFilters.every(weakness => mon['type'].includes(weakness)))
   }
-
 
   filterByWeakness = pokemon => {
     const { weaknessFilters } = this.props
     return pokemon.filter(mon => weaknessFilters.every(weakness => mon['weaknesses'].includes(weakness)))
   }
 
-  // A list of all pokemon based on filters
+  displayPokemon = pokemon => {
+    return pokemon.map(mon => <PokemonCard key={mon.num} {...mon} />)
+  }
   render() {
-    const allPokemon = this.state.pokemon;
-    const { typeFilters, weaknessFilters } = this.props;
+    // A list of all pokemon based on filters
+    const allPokemon = this.props.pokemon;
     const byName = this.filterByName(allPokemon);
     const byType = this.filterByType(byName);
     const toDisplay = this.filterByWeakness(byType);
 
-
-    // const bytype = this.filterByKey(byName, typeFilters, 'type')
-    // const toDisplay = this.filterByKey(bytype, weaknessFilters, 'weaknesses')
-
     return (
-
-      <section >
-        <h1>LIST</h1>
-        {toDisplay.map(mon => {
-          return <img src={mon.img} alt={mon.name} />
-        })}
+      <section className='list-container'>
+        {this.displayPokemon(toDisplay)}
       </section>
     );
   }
