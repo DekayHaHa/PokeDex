@@ -3,24 +3,19 @@ import { PokemonCard } from './PokemonCard'
 
 
 export default class List extends Component {
+  // make a functional component
   constructor(props) {
     super(props);
     this.state = {
-      pokemon: [],
     }
   }
 
-  componentDidUpdate = prevProps => {
-    const { pokemon } = this.props
-    if (prevProps !== this.props) {
-      this.setState({ pokemon })
-    }
-  }
-
+  // possibly use a library if project had more data 
   filterByName = pokemon => {
     return pokemon.filter(mon => mon.name.toLowerCase().includes(this.props.searchText))
   }
 
+  // Could possibly comnine type/weakness filters
   filterByType = pokemon => {
     const { typeFilters } = this.props
     return pokemon.filter(mon => typeFilters.every(weakness => mon['type'].includes(weakness)))
@@ -32,18 +27,17 @@ export default class List extends Component {
   }
 
   displayPokemon = pokemon => {
-    return pokemon.map(mon => <PokemonCard {...mon} />)
+    return pokemon.map(mon => <PokemonCard key={mon.num} {...mon} />)
   }
-  // A list of all pokemon based on filters
   render() {
-    const allPokemon = this.state.pokemon;
+    // A list of all pokemon based on filters
+    const allPokemon = this.props.pokemon;
     const byName = this.filterByName(allPokemon);
     const byType = this.filterByType(byName);
     const toDisplay = this.filterByWeakness(byType);
 
     return (
-
-      <section class='list-container'>
+      <section className='list-container'>
         {this.displayPokemon(toDisplay)}
       </section>
     );

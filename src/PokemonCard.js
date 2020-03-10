@@ -2,14 +2,15 @@ import React from 'react'
 
 export const PokemonCard = props => {
 
+  // displays the weaknesses/types of approriate pokemon on its card
   const displayListItems = items => {
-    return items.map(item => <p>{item}</p>)
+    return items.map((item, i) => <p key={i}>{item}</p>)
   }
 
   return (
-    <div class='pokemon-card'>
-      <h3 class='pokemon-name'>{props.name} {props.num}</h3>
-      <div class='card-info'>
+    <div className='pokemon-card'>
+      <h3 className='pokemon-name'>{props.name} {props.num}</h3>
+      <div className='card-info'>
         <img src={props.img} alt={props.name} />
         <div>
           <h4>Type</h4>
@@ -17,7 +18,7 @@ export const PokemonCard = props => {
         </div>
         <div>
           <h4>Weaknesses</h4>
-          <div class='weaknesses'>
+          <div className='weaknesses'>
             {displayListItems(props.weaknesses)}
           </div>
         </div>

@@ -17,8 +17,9 @@ export default class App extends Component {
       searchText: '',
       typeFilters: [],
       weaknessFilters: [],
-      isOpen: false,
-
+      // for modal to display pokemon details
+      // isOpen: false,
+      // pokemonDetails: {}
     }
   }
   componentDidMount = () => {
@@ -36,11 +37,12 @@ export default class App extends Component {
 
   setFilters = () => this.changeState(getFilters(this.state.pokemon))
 
+  // basic fuction passed an object to set new state
   changeState = newState => this.setState(newState)
 
+  // checks filter arrays and add/ removes filter elem respectively
   checkBoxFilters = (key, toFilterBy) => {
     let newFilters = this.state[key]
-
     if (this.state[key].includes(toFilterBy)) {
       newFilters = newFilters.filter(val => val !== toFilterBy)
     } else {

@@ -1,12 +1,13 @@
 .app {
   display: flex;
-  padding: 15px;
 }
 
 .header {
   position: fixed;
   width: 30%;
   text-align: center;
+  background-color: lavender;
+  height: 100%;
 }
 
 .checkbox-container {
@@ -18,7 +19,14 @@
 }
 
 .checkboxes {
+  padding-left: 10px;
   columns: 2;
+  text-align: left;
+}
+
+.checkboxes label,
+.checkboxes input {
+  cursor: pointer;
 }
 
 .filter-holder:first-child {
@@ -60,5 +68,6 @@ div.weaknesses {
 }
 
 .pokemon-name {
-  background-color: lavender;
+  background-color: lightcoral;
 }
+
